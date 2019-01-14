@@ -50,7 +50,7 @@ def post_to_api(data, endpoint):
     pprint(data)
     print()
 
-    if input("Confirm sending this to %s (Y/n): " % ENDPOINT) != 'Y':
+    if (not TEST) or (input("Confirm sending this to %s (Y/n): " % ENDPOINT) != 'Y'):
         print("Did not send.")
         return
 

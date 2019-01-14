@@ -16,22 +16,30 @@ $ brew services start postgresql
 
 To create the database for the first time: `createdb testdb`.
 
-To create the tables for the first time:
+To create the tables locally for the first time:
 ```
 
-$ FLASK_APP=main.py DBUSER="" DBPASS="" DBHOST="" DBNAME="testdb"  python 
+$ python 
 > from main import db
 > db.create_all()  # inverse is db.drop_all()
 
 ```
 
 
+To modify the tables in prod GCP:
+```
 
-
-Run the flask server
+$ DBUSER=postgres DBPASS=<pass> INSTANCE_CONNECTION_NAME=pip-project-survey:northamerica-northeast1:testdb DBDATABASE=testdb ipython
+> from main import db
+> db.create_all()  # inverse is db.drop_all()
 
 ```
-$ FLASK_APP=main.py DBUSER="" DBPASS="" DBHOST="" DBNAME="testdb"  python -m flask run
+
+
+Run the flask server locally
+
+```
+$ FLASK_APP=main.py  python -m flask run
 ```
 
 #### Deploy
