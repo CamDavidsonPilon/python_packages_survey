@@ -42,7 +42,11 @@ ENDPOINT = 'https://pip-project-survey.appspot.com/collect'
 
 
 def python_version():
-    return "%d.%d.%d" % (version_info.major, version_info.minor, version_info.micro)
+    # python 2.6 does this differently...
+    try:
+        return "%d.%d.%d" % (version_info.major, version_info.minor, version_info.micro)
+    except:
+        return "%d.%d.%d" % (version_info[0], version_info[1], version_info[2])
 
 
 def post_to_api(data, endpoint):
