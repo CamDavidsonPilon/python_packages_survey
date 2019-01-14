@@ -1,12 +1,36 @@
 # -*- coding: utf-8 -*-
-
-"""
-Intro
- - links to website
- - small licence  
-
-"""
 from __future__ import print_function
+"""
+What is this?
+
+
+
+
+
+
+
+🔷 Optional questions to provide, but will help with analysis 🔷
+
+"""
+
+# We'd like to know about why you use Python most often.
+# Provide the closest option in {'science & engineering', 'web development', 'education', 'scripting', 'software development', 'other'}.
+PRIMARY_USE_OF_PYTHON = None  # a string above
+
+# Are you a contributer to open source software yourself?
+CONTRIBUTER_TO_OSS = None  # True, False
+
+# Is this a production system (i.e., not a local / development computer)?
+PRODUCTION_SYSTEM = None  # True, False
+
+# How many years have you been using Python?
+YEARS_USING_PYTHON = None  # integer
+
+
+
+
+#################################################################################
+
 from uuid import uuid4
 from pprint import pprint
 import pkg_resources
@@ -38,7 +62,7 @@ else:
     TEST = False
 
 
-ENDPOINT = 'https://pip-project-survey.appspot.com/collect'
+ENDPOINT = 'http://localhost:5000/collect'
 
 
 def python_version():
@@ -56,19 +80,21 @@ def post_to_api(data, endpoint):
         if (input("Confirm sending this to %s (Y/n): " % ENDPOINT) != 'Y'):
             print("Did not send.")
             return
-
+    print()
     data = json.dumps(data)
     if python_version() >= '3':
+        # converts ty bytes
         data = str.encode(data)
 
-    req =  Request(endpoint, data=data, headers={'Content-Type': 'application/json'})
-    req.add_header('Content-Type', 'application/json')
+    req = Request(endpoint, data=data, headers={'Content-Type': 'application/json'})
     try:
         resp = urlopen(req)
         print("Sent successfully.")
     except URLError as e:
-        print(e)
-        print("Connection to endpoint failed. Try again later?")
+        if e.code == 400:
+            print("Data validation failure. Correct your inputs and try again.")
+        else:
+            print("Connection to endpoint failed. Try again later?")
     except HTTPError:
         print("Server failed. Try again later?")
 
@@ -83,30 +109,14 @@ def generate_uuid():
 installed_packages = [(d.project_name, d.version) for d in pkg_resources.working_set]
 
 
-"""
-🔷 Optional to provide, but will help with analysis 🔷
-
-"""
-
-# We'd like to know about why you use Python.
-# Provide the closest option in {'science & engineering', 'web development', 'education', 'scripting', 'software development'}.
-PRIMARY_USE_OF_PYTHON = None  # a string above
-
-# Are you a contributer to open source software yourself?
-CONTRIBUTER_TO_OSS = None  # True, False
-
-# Is this a production system (i.e., not a local / development computer)?
-PRODUCTION_SYSTEM = None  # True, False
-
-
-
 data = {
     'primary_use': PRIMARY_USE_OF_PYTHON,
     'uuid': generate_uuid(),
     'list_of_installed_packages': installed_packages,
     'test': TEST,
     'platform': platform,
-    'python_version': python_version()
+    'python_version': python_version(),
+    'years_using_python': YEARS_USING_PYTHON
 }
 
 

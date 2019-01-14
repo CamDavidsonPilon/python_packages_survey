@@ -50,4 +50,5 @@ To deploy (Python 2.7 required)
 gcloud app deploy
 ```
 https://pip-project-survey.appspot.com/
+https://pip-packages-survey.com/
 

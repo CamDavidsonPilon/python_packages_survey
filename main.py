@@ -1,7 +1,8 @@
 import os
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-
+import psycopg2
+import sqlalchemy
 
 
 if os.environ.get('GAE_APPLICATION'):
@@ -25,22 +26,25 @@ app.config.update(
 db = SQLAlchemy(app)
 
 
+
 class Environment(db.Model):
     id =             db.Column(db.Integer(), primary_key=True)
     test =           db.Column(db.Boolean())
     platform =       db.Column(db.String(256))
     uuid =           db.Column(db.String(256))
     packages =       db.Column(db.ARRAY(db.String(256)))
-    primary_use =    db.Column(db.String(256))
+    primary_use =    db.Column(db.Enum('science & engineering', 'web development', 'education', 'scripting', 'software development', 'other', name='primary_use'))
     python_version = db.Column(db.String(64))
+    years_using_python = db.Column(db.Integer())
 
-    def __init__(self, test, platform, uuid, packages, primary_use, python_version):
+    def __init__(self, test, platform, uuid, packages, primary_use, python_version, years_using_python):
         self.test = test
         self.platform = platform
         self.packages = packages
         self.uuid = uuid
         self.primary_use = primary_use
         self.python_version = python_version
+        self.years_using_python = years_using_python
 
 
 @app.route('/')
@@ -60,9 +64,12 @@ def collect():
             data['list_of_installed_packages'],
             data['primary_use'],
             data['python_version'],
+            data['years_using_python'],
         )
-        
-        db.session.add(row)
-        db.session.commit()
-        
+        try:
+            db.session.add(row)
+            db.session.commit()
+        except sqlalchemy.exc.DataError:
+            return "Data validation error", 400
+
         return "a-okay", 200
