@@ -48,11 +48,10 @@ def python_version():
 def post_to_api(data, endpoint):
     print("Sending data:")
     pprint(data)
-    print()
-
-    if (not TEST) or (input("Confirm sending this to %s (Y/n): " % ENDPOINT) != 'Y'):
-        print("Did not send.")
-        return
+    if not TEST:
+        if (input("Confirm sending this to %s (Y/n): " % ENDPOINT) != 'Y'):
+            print("Did not send.")
+            return
 
     data = json.dumps(data)
     req =  Request(endpoint, data=data, headers={'Content-Type': 'application/json'})
