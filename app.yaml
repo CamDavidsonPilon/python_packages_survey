@@ -1,1 +1,7 @@
 runtime: python37
+
+includes:
+  - env_variables.yaml
+
+beta_settings:
+  cloud_sql_instances: pip-project-survey:northamerica-northeast1:testdb

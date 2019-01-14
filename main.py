@@ -4,12 +4,17 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 
-database_uri = 'postgresql+psycopg2://{dbuser}:{dbpass}@{dbhost}/{dbname}'.format(
-    dbuser=os.environ['DBUSER'],
-    dbpass=os.environ['DBPASS'],
-    dbhost=os.environ['DBHOST'],
-    dbname=os.environ['DBNAME']
-)
+if True: #os.environ.get('GAE_APPLICATION'):
+    # https://cloud.google.com/appengine/docs/flexible/python/using-cloud-sql-postgres
+    database_uri = 'postgresql+psycopg2://{USER}:{PASSWORD}@/{DATABASE}?host=/cloudsql/{INSTANCE_CONNECTION_NAME}'.format(
+        USER=os.environ['DBUSER'],
+        PASSWORD=os.environ['DBPASS'],
+        DATABASE=os.environ['DBDATABASE'],
+        INSTANCE_CONNECTION_NAME=os.environ['INSTANCE_CONNECTION_NAME']
+    )
+else:
+    database_uri = 'postgresql+psycopg2://:@/testdb'
+
 
 app = Flask(__name__)
 app.config.update(
@@ -42,20 +47,22 @@ class Environment(db.Model):
 def home():
     return render_template('index.html')
 
-@app.route('/collect', methods=['POST'])
+@app.route('/collect', methods=['POST', 'GET'])
 def collect():
-    data = request.get_json()
 
-    row = Environment(
-        data['test'], 
-        data['platform'], 
-        data['uuid'],
-        data['list_of_installed_packages'],
-        data['primary_use'],
-        data['python_version'],
-    )
-    
-    db.session.add(row)
-    db.session.commit()
-    
-    return "a-okay", 200
+    if request.method == 'POST':
+        data = request.get_json()
+
+        row = Environment(
+            data['test'], 
+            data['platform'], 
+            data['uuid'],
+            data['list_of_installed_packages'],
+            data['primary_use'],
+            data['python_version'],
+        )
+        
+        db.session.add(row)
+        db.session.commit()
+        
+        return "a-okay", 200

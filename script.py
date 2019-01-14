@@ -38,7 +38,7 @@ else:
     TEST = False
 
 
-ENDPOINT = 'http://localhost:5000/collect'
+ENDPOINT = 'https://pip-project-survey.appspot.com/collect'
 
 
 def python_version():
@@ -60,7 +60,8 @@ def post_to_api(data, endpoint):
     try:
         resp = urlopen(req)
         print("Sent successfully.")
-    except URLError:
+    except URLError as e:
+        print(e)
         print("Connection to endpoint failed. Try again later?")
     except HTTPError:
         print("Server failed. Try again later?")
