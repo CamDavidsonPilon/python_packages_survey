@@ -2,7 +2,6 @@ language: python
 cache: pip
 dist: trusty
 python:
-   - "2.5"
    - "2.6"
    - "2.7"
    - "3.3"
@@ -16,6 +15,6 @@ matrix:
       dist: xenial
       sudo: true
 script:
-  - python scipy.py
+  - python script.py
 notifications:
   email: false
