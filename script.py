@@ -7,11 +7,13 @@ Intro
 
 """
 from __future__ import print_function
-import pkg_resources
 from uuid import uuid4
-import os
 from pprint import pprint
+import pkg_resources
+import os
 import json
+from sys import platform
+
 
 # Python 2 and 3 has different urllib APIs. 
 try:
@@ -76,7 +78,8 @@ data = {
     'primary_use': PRIMARY_USE_OF_PYTHON,
     'uuid': generate_uuid(),
     'list_of_installed_packages': installed_packages,
-    'test': TEST
+    'test': TEST,
+    'platform': platform
 }
 
 
