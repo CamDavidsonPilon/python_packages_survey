@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 
-if True: #os.environ.get('GAE_APPLICATION'):
+if os.environ.get('GAE_APPLICATION'):
     # https://cloud.google.com/appengine/docs/flexible/python/using-cloud-sql-postgres
     database_uri = 'postgresql+psycopg2://{USER}:{PASSWORD}@/{DATABASE}?host=/cloudsql/{INSTANCE_CONNECTION_NAME}'.format(
         USER=os.environ['DBUSER'],

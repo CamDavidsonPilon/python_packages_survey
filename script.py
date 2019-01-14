@@ -58,6 +58,9 @@ def post_to_api(data, endpoint):
             return
 
     data = json.dumps(data)
+    if python_version() >= '3':
+        data = str.encode(data)
+
     req =  Request(endpoint, data=data, headers={'Content-Type': 'application/json'})
     req.add_header('Content-Type', 'application/json')
     try:
