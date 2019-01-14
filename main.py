@@ -21,15 +21,21 @@ db = SQLAlchemy(app)
 
 
 class Environment(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
-    test = db.Column(db.Boolean(), nullable=True)
-    platform = db.Column(db.String(256), nullable=True)
-    packages = db.Column(db.Array(db.String(256)), nullable=True)
+    id =             db.Column(db.Integer(), primary_key=True)
+    test =           db.Column(db.Boolean())
+    platform =       db.Column(db.String(256))
+    uuid =           db.Column(db.String(256))
+    packages =       db.Column(db.ARRAY(db.String(256)))
+    primary_use =    db.Column(db.String(256))
+    python_version = db.Column(db.String(64))
 
-    def __init__(self, test, platform):
+    def __init__(self, test, platform, uuid, packages, primary_use, python_version):
         self.test = test
         self.platform = platform
         self.packages = packages
+        self.uuid = uuid
+        self.primary_use = primary_use
+        self.python_version = python_version
 
 
 @app.route('/')
@@ -40,7 +46,14 @@ def home():
 def collect():
     data = request.get_json()
 
-    row = Environment(data['test'], data['platform'][:256], data['packages'])
+    row = Environment(
+        data['test'], 
+        data['platform'], 
+        data['uuid'],
+        data['list_of_installed_packages'],
+        data['primary_use'],
+        data['python_version'],
+    )
     
     db.session.add(row)
     db.session.commit()

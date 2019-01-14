@@ -12,10 +12,10 @@ from pprint import pprint
 import pkg_resources
 import os
 import json
-from sys import platform
+from sys import platform, version_info
 
 
-# Python 2 and 3 has different urllib APIs. 
+# Python2/3 have different urllib APIs. 
 try:
     from urllib.parse import urlencode
     from urllib.request import urlopen, Request
@@ -23,6 +23,13 @@ try:
 except ImportError:
     from urllib import urlencode
     from urllib2 import urlopen, Request, HTTPError, URLError
+
+# Python2/3 have different user input APIs
+try:
+    input = raw_input
+except NameError:
+    pass
+
 
 # Are we in the Travis testing environment?
 if os.environ.get('TRAVIS'):
@@ -34,19 +41,31 @@ else:
 ENDPOINT = 'http://localhost:5000/collect'
 
 
+def python_version():
+    return "%d.%d.%d" % (version_info.major, version_info.minor, version_info.micro)
+
 
 def post_to_api(data, endpoint):
     print("Sending data:")
     pprint(data)
+    print()
+
+    if input("Confirm sending this to %s (Y/n): " % ENDPOINT) != 'Y':
+        print("Did not send.")
+        return
+
     data = json.dumps(data)
     req =  Request(endpoint, data=data, headers={'Content-Type': 'application/json'})
     req.add_header('Content-Type', 'application/json')
     try:
         resp = urlopen(req)
-    except URLError as e:
+        print("Sent successfully.")
+    except URLError:
         print("Connection to endpoint failed. Try again later?")
-    except HTTPError as e:
-        print(e.code)
+    except HTTPError:
+        print("Server failed. Try again later?")
+
+
 
 def generate_uuid():
     uuid = str(uuid4())
@@ -62,14 +81,14 @@ installed_packages = [(d.project_name, d.version) for d in pkg_resources.working
 
 """
 
-# We'd like to know about how you use Python.
-# Provide one of 'science', 'web development', 'education', 'scripting', 'software development'.
-PRIMARY_USE_OF_PYTHON = None  # string above
+# We'd like to know about why you use Python.
+# Provide the closest option in {'science & engineering', 'web development', 'education', 'scripting', 'software development'}.
+PRIMARY_USE_OF_PYTHON = None  # a string above
 
 # Are you a contributer to open source software yourself?
 CONTRIBUTER_TO_OSS = None  # True, False
 
-# Is this a production system (i.e., not local or development)?
+# Is this a production system (i.e., not a local / development computer)?
 PRODUCTION_SYSTEM = None  # True, False
 
 
@@ -79,7 +98,8 @@ data = {
     'uuid': generate_uuid(),
     'list_of_installed_packages': installed_packages,
     'test': TEST,
-    'platform': platform
+    'platform': platform,
+    'python_version': python_version()
 }
 
 
