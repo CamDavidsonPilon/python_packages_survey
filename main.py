@@ -22,9 +22,9 @@ else:
 app = Flask(__name__)
 app.config.update(
     SQLALCHEMY_DATABASE_URI=database_uri,
+    SQLALCHEMY_TRACK_MODIFICATIONS=False
 )
 
-PYPI_LIBS = utils.get_pypi_libraries()
 db = SQLAlchemy(app)
 
 

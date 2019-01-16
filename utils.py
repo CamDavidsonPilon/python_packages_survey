@@ -14,3 +14,6 @@ def get_pypi_libraries():
 
 def is_gcp():
     return os.environ.get('GAE_APPLICATION') is not None
+
+
+PYPI_LIBS = get_pypi_libraries()

@@ -3,5 +3,11 @@ runtime: python37
 includes:
   - env_variables.yaml
 
+handlers:
+- url: /static
+  static_dir: static
+- url: /.*
+  script: main.app
+
 beta_settings:
   cloud_sql_instances: pip-project-survey:northamerica-northeast1:testdb
