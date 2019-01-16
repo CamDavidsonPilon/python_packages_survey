@@ -64,7 +64,7 @@ def collect():
     if request.method == 'POST':
         data = request.get_json()
 
-        public_libs = [(name, version) for (name, version) in data['list_of_installed_packages'] if name in PYPI_LIBS]
+        public_libs = [(name, version) for (name, version) in data['list_of_installed_packages'] if name in utils.PYPI_LIBS]
 
         row = Environment(
             data['test'], 

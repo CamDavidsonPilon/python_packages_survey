@@ -1,4 +1,5 @@
 runtime: python37
+instance_class: F4_1G
 
 includes:
   - env_variables.yaml
@@ -6,8 +7,6 @@ includes:
 handlers:
 - url: /static
   static_dir: static
-- url: /.*
-  script: main.app
 
 beta_settings:
   cloud_sql_instances: pip-project-survey:northamerica-northeast1:testdb
