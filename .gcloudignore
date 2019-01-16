@@ -22,4 +22,3 @@ __pycache__/
 cloud_sql_proxy
 env_variables.yaml
 travis_requirements.txt
-script.py
