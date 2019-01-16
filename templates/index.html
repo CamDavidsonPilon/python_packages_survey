@@ -40,6 +40,11 @@
           <li> Execute the script to submit. </li>
           <li> Finished! </li>
         <pre>
+          <span id="code_span">
+            <button class="btn" data-clipboard-target="#code">
+              <img src="static/clippy.svg" alt="Copy to clipboard" width=13>
+            </button>
+          </span>
           <code class="python" id="code">{{code}}
         </code>
         md5 check sum is {{md5hash}}
@@ -75,20 +80,8 @@
       <p>  </p>
     </div>
     <script type="text/javascript">
-      var clipboard = new ClipboardJS('.copy-button');
+      new ClipboardJS('.btn');
 
-      clipboard.on('success', function(e) {
-          console.info('Action:', e.action);
-          console.info('Text:', e.text);
-          console.info('Trigger:', e.trigger);
-
-          e.clearSelection();
-      });
-
-      clipboard.on('error', function(e) {
-          console.error('Action:', e.action);
-          console.error('Trigger:', e.trigger);
-      });
     </script>
   </body>
 </html>
