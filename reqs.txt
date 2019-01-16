@@ -2,3 +2,5 @@ flask>=1.0
 flask-sqlalchemy
 sqlalchemy
 psycopg2
+lxml
+requests

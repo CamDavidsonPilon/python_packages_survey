@@ -4,8 +4,10 @@ from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 import sqlalchemy
 
+import utils
 
-if os.environ.get('GAE_APPLICATION'):
+
+if utils.is_gcp():
     # https://cloud.google.com/appengine/docs/flexible/python/using-cloud-sql-postgres
     database_uri = 'postgresql+psycopg2://{USER}:{PASSWORD}@/{DATABASE}?host=/cloudsql/{INSTANCE_CONNECTION_NAME}'.format(
         USER=os.environ['DBUSER'],
@@ -20,9 +22,9 @@ else:
 app = Flask(__name__)
 app.config.update(
     SQLALCHEMY_DATABASE_URI=database_uri,
-    SQLALCHEMY_TRACK_MODIFICATIONS=False, # I think I can remove
 )
 
+PYPI_LIBS = utils.get_pypi_libraries()
 db = SQLAlchemy(app)
 
 
@@ -47,9 +49,14 @@ class Environment(db.Model):
         self.years_using_python = years_using_python
 
 
+
+
 @app.route('/')
 def home():
-    return render_template('index.html')
+    email = "cam.davidson.pilon@gmail.com"
+    count = 3
+    return render_template('index.html', count=count, email=email)
+
 
 @app.route('/collect', methods=['POST', 'GET'])
 def collect():
@@ -57,11 +64,13 @@ def collect():
     if request.method == 'POST':
         data = request.get_json()
 
+        public_libs = [(name, version) for (name, version) in data['list_of_installed_packages'] if name in PYPI_LIBS]
+
         row = Environment(
             data['test'], 
             data['platform'], 
             data['uuid'],
-            data['list_of_installed_packages'],
+            public_libs,
             data['primary_use'],
             data['python_version'],
             data['years_using_python'],

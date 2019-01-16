@@ -1,23 +1,187 @@
 <html>
   <head>
-    <title>Home</title>
-   <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>2018 Python Packages Survey</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/googlecode.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
 
     <div id="header_wrap" class="outer">
         <header class="inner">
-          <h1 id="title">2019 PIP Packages Survey</h1>
+          <h1 id="title">Python Packages Survey</h1>
         </header>
     </div>
     <div id="main_content_wrap">
       <section id="main_content" class="inner">
-        <h2> This is a test header </h2>
-        <p> test </p>
+        <h3> Over {{count}} people have already answered the survey!</h3>
+
+        <h2> What is the Python Packages Survey? </h2>
+        <p>blurb</p>
+        <div id="TOC">
+          <ol>
+            <li> <a href="#code_start">Participate</a> </li>
+            <li> <a href="#FAQs">FAQs</a> </li>
+            <li> <a href="#contact">Contact</a> </li>
+          </ol>
+        </div>
+
+
+        <p id="code_start"> Copy the following Python script to your computer, and execute the script to submit. </p>
+        <pre>
+          <code class="python" id="code"># -*- coding: utf-8 -*-
+from __future__ import print_function
+
+# 🔷 Optional answers to provide, but will help with analysis 🔷
+
+# We'd like to know about why you use Python most often.
+# Provide the closest option in:
+#  'science & engineering', 'web development', 'education',
+#  'scripting', 'software development', 'other'
+PRIMARY_USE_OF_PYTHON = None  # a string above
+
+# Are you a contributer to open source software yourself?
+CONTRIBUTER_TO_OSS = None  # True, False
+
+# Is this a production system (i.e., not a local / development computer)?
+PRODUCTION_SYSTEM = None  # True, False
+
+# How many years have you been using Python?
+YEARS_USING_PYTHON = None  # integer
+
+#############################################################
+
+from uuid import uuid4
+from pprint import pprint
+import pkg_resources
+import os
+import json
+from sys import platform, version_info
+try:
+    # Python2/3 have different urllib APIs.
+    from urllib.parse import urlencode
+    from urllib.request import urlopen, Request
+    from urllib.error import HTTPError, URLError
+except ImportError:
+    from urllib import urlencode
+    from urllib2 import urlopen, Request, HTTPError, URLError
+try:
+    # Python2/3 have different user input APIs
+    input = raw_input
+except NameError:
+    pass
+
+
+# Are we in the Travis testing environment?
+if os.environ.get("TRAVIS"):
+    TEST = True
+else:
+    TEST = False
+
+ENDPOINT = "http://localhost:5000/collect"
+
+
+def python_version():
+    try:
+        # python 2.6 does this differently...
+        return "%d.%d.%d" % (version_info.major, version_info.minor, version_info.micro)
+    except:
+        return "%d.%d.%d" % (version_info[0], version_info[1], version_info[2])
+
+
+def post_to_api(data, endpoint):
+    print("Sending the following data:", end='\n\n')
+    pprint(data)
+    print()
+    print("✨ Note: All private libraries are filtered out before hitting the database ✨", end='\n\n')
+    if not TEST:
+        if input("🔷 Please confirm sending this data to %s (Y/n): " % ENDPOINT) != "Y":
+            print("Aborted sending.")
+            return
+    print()
+    data = json.dumps(data)
+    if python_version() >= "3":
+        # converts to bytes
+        data = str.encode(data)
+
+    req = Request(endpoint, data=data, headers={"Content-Type": "application/json"})
+    try:
+        resp = urlopen(req)
+        print("🎉 Sent successfully. Thank you for particpating in the survey")
+    except URLError as e:
+        if e.code == 400:
+            print("Data validation failure. Correct your inputs and try again.")
+        else:
+            print("Connection to endpoint failed. Try again later?")
+    except HTTPError:
+        print("Server failed. Try again later?")
+
+
+def generate_uuid():
+    uuid = str(uuid4())
+    print("""You unique identifier is `%s`. Please provide this to us 
+if you wish to delete your data from our database."""
+        % uuid, end="\n\n")
+    return uuid
+
+data = {
+    "primary_use": PRIMARY_USE_OF_PYTHON,
+    "uuid": generate_uuid(),
+    "list_of_installed_packages": [(d.project_name, d.version) for d in pkg_resources.working_set],
+    "test": TEST,
+    "platform": platform,
+    "python_version": python_version(),
+    "years_using_python": YEARS_USING_PYTHON,
+}
+
+post_to_api(data, ENDPOINT)
+        </code>
+        md5 check sum is ddeef857448170385fad1c3690d954a9
+      </pre>
+
+      <h2 id="FAQs"> FAQs </h2>
+
+      <h3> Why are we doing this? </h3>
+      <p> You can read about the current problems, solutions, and business use cases of this data <a href="https://www.notion.so/camdp/Why-are-we-doing-this-332c3898242a4ce8bf7b784b9e1afa62">here</a>. </p>
+      <h3> What are the risk of running random scripts from the web? </h3>
+      <p>There are lots of risk with running random scripts taken from the web and generally it's a bad idea. However, we've done two sensible things to build your confidence. The first is that we open sourced our code, both the script (obviously) and the backend. The repository is <a href="https://github.com/CamDavidsonPilon/pip_packages_survey">here</a>. Secondly, I've had some trusted Python developers review the script to confirm nothing malicious is in it. Their reviews are <a href="">here</a>.</p>
+      <h3> Can I delete my data after? </h3>
+      <p> Yes, so long as you hold onto the unique identifier we generate for you. The script will print out a UUID to the screen. Then you can email us at {{email}} with the request to delete the data associated with your UUID.
+      <h3> Are references to my private libraries saved?</h3>
+      <p> <bold>We do our best to avoid this.</bold> On the server side, we have a list of all public PyPI libraries. We filter your list against this list before the data touches the database. (It may happen that your private library has the same name as a public library, however, in which case it will not be filtered.)
+      <h3> Where can I see the survey results?</h3>
+      <p> Periodically, we will be dumping the data to a public location. Stay tuned.</p>
+      <h3> Who are you? </h3>
+      <p> I'm <a href="http://github.com/camdavidsonpilon">Cam Davidson-Pilon</a>, a long-time Python developer who works on data science open source projects.</p>
+
+      <h2 id="contact"> Contact </h2>
+      <p> If you have any questions or concerns, please reach out to {{email}} or post an issue in our <a href="https://github.com/CamDavidsonPilon/pip_packages_survey">repository</a>.</p>
+
+      <p> Thanks for taking the time to make the Python ecosystem better!</p>
+
       </section>
     </div>
     <div id="footer_wrap" class="outer">
-      <p> test </p>
+      <p>  </p>
     </div>
+    <script type="text/javascript">
+      var clipboard = new ClipboardJS('.copy-button');
+
+      clipboard.on('success', function(e) {
+          console.info('Action:', e.action);
+          console.info('Text:', e.text);
+          console.info('Trigger:', e.trigger);
+
+          e.clearSelection();
+      });
+
+      clipboard.on('error', function(e) {
+          console.error('Action:', e.action);
+          console.error('Trigger:', e.trigger);
+      });
+    </script>
   </body>
 </html>
