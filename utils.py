@@ -1,6 +1,6 @@
 import os
 
-def get_pypi_libraries():
+def fetch_from_url_pypi_libraries():
     print("Fetching public PYPI libraries.")
     from lxml import html
     import requests
@@ -11,9 +11,15 @@ def get_pypi_libraries():
 
     return set(package for package in tree.xpath('//a/text()'))
 
+def load_from_disk_pypi_libraries():
+    import pickle
+    with open("packages.pickle", 'rb') as f:
+        s = pickle.load(f)
+    return s
+
+
 
 def is_gcp():
     return os.environ.get('GAE_APPLICATION') is not None
 
 
-PYPI_LIBS = get_pypi_libraries()

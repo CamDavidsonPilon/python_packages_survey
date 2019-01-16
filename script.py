@@ -47,7 +47,8 @@ if os.environ.get("TRAVIS"):
 else:
     TEST = False
 
-ENDPOINT = "http://localhost:5000/collect"
+# ENDPOINT = "http://localhost:5000/collect"
+ENDPOINT = "https://python-packages-survey.com/collect"
 
 
 def python_version():
