@@ -1,4 +1,6 @@
+import datetime
 import os
+
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
@@ -38,6 +40,7 @@ class Environment(db.Model):
     primary_use =    db.Column(db.Enum('science & engineering', 'web development', 'education', 'scripting', 'software development', 'other', name='primary_use'))
     python_version = db.Column(db.String(64))
     years_using_python = db.Column(db.Integer())
+    created_at = db.Column(db.DateTime(), default=datetime.datetime.now)
 
     def __init__(self, test, platform, uuid, packages, primary_use, python_version, years_using_python):
         self.test = test
