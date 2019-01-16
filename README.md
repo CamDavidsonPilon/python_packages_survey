@@ -26,7 +26,7 @@ $ python
 ```
 
 
-To modify the tables in prod GCP:
+To modify the tables in prod GCP (run `./cloud_sql_proxy`)
 ```
 
 $ DBUSER=postgres DBPASS=<pass> INSTANCE_CONNECTION_NAME=pip-project-survey:northamerica-northeast1:testdb DBDATABASE=testdb ipython

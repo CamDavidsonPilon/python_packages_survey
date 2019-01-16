@@ -55,7 +55,9 @@ class Environment(db.Model):
 def home():
     email = "cam.davidson.pilon@gmail.com"
     count = 3
-    return render_template('index.html', count=count, email=email)
+    code = open('script.py', 'r').read()
+    md5hash = utils.md5checksum(code)
+    return render_template('index.html', count=count, email=email, code=code, md5hash=md5hash)
 
 
 @app.route('/collect', methods=['POST', 'GET'])

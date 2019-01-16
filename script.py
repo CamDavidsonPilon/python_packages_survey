@@ -9,7 +9,7 @@ from __future__ import print_function
 #  'scripting', 'software development', 'other'
 PRIMARY_USE_OF_PYTHON = None  # a string above
 
-# Are you a contributer to open source software yourself?
+# Are you a contributer to open source software?
 CONTRIBUTER_TO_OSS = None  # True, False
 
 # Is this a production system (i.e., not a local / development computer)?
@@ -81,7 +81,6 @@ def post_to_api(data, endpoint):
         print("🎉 Sent successfully. Thank you for particpating in the survey")
     except URLError as e:
         if e.code == 400:
-            # vet this.
             print("Data validation failure. Correct your inputs and try again.")
         else:
             print("Connection to endpoint failed. Try again later?")

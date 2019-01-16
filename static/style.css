@@ -24,7 +24,7 @@ body {
 }
 
 #TOC {
-    font-size: 23px;
+    font-size: 20px;
     margin-bottom: 30px;
 }
 
@@ -77,9 +77,17 @@ pre{
     background-color: #ececec;
     padding: 10px 15px;
     line-height: 1.25;
-
 }
 
+ol {
+  padding-left: 40px;
+  margin: 0;
+}
+
+li {
+    margin: 8px 0;
+    padding: 0;
+}
 
 h1, h2, h3, h4, h5, h6 {
   margin: 10px 0;

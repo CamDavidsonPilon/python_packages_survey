@@ -20,126 +20,29 @@
         <h3> Over {{count}} people have already answered the survey!</h3>
 
         <h2> What is the Python Packages Survey? </h2>
-        <p>blurb</p>
+        <p> The Python Packages Survey was developed to help open source software authors understand their users environments so the authors can build more reliable, robust, and performant software. This anonymous survey is for any developer who has worked with Python, and we hope to capture all systems: your local environment, production enviroments, remote environments, etc. <b>Your partcipation will help open source developers</b>.</p>
+
+        <p>Our path is to be 100% transparent in data collection and data handling. Hence we have open sourced all the code, and will batch dump the data periodically for others to use. In our FAQs section, we answer your questions about data usage, privacy and multiple environments.</p>
+
         <div id="TOC">
           <ol>
-            <li> <a href="#code_start">Participate</a> </li>
+            <li> <a href="#partcipation">Participate</a> </li>
             <li> <a href="#FAQs">FAQs</a> </li>
             <li> <a href="#contact">Contact</a> </li>
           </ol>
         </div>
 
-
-        <p id="code_start"> Copy the following Python script to your computer, and execute the script to submit. </p>
+        <h2 id="partcipation"> Participate </h2>
+        <p> Completing our survey is easy: </p>
+        <ol>
+          <li> Copy the Python script below to the computer you want to submit results for. This could be as a new Python file in your IDE. </li>
+          <li> (Optional) There are a few questions in the beginning of the script we encourage you to fill in.</li>
+          <li> Execute the script to submit. </li>
+          <li> Finished! </li>
         <pre>
-          <code class="python" id="code"># -*- coding: utf-8 -*-
-from __future__ import print_function
-
-# 🔷 Optional answers to provide, but will help with analysis 🔷
-
-# We'd like to know about why you use Python most often.
-# Provide the closest option in:
-#  'science & engineering', 'web development', 'education',
-#  'scripting', 'software development', 'other'
-PRIMARY_USE_OF_PYTHON = None  # a string above
-
-# Are you a contributer to open source software yourself?
-CONTRIBUTER_TO_OSS = None  # True, False
-
-# Is this a production system (i.e., not a local / development computer)?
-PRODUCTION_SYSTEM = None  # True, False
-
-# How many years have you been using Python?
-YEARS_USING_PYTHON = None  # integer
-
-#############################################################
-
-from uuid import uuid4
-from pprint import pprint
-import pkg_resources
-import os
-import json
-from sys import platform, version_info
-try:
-    # Python2/3 have different urllib APIs.
-    from urllib.parse import urlencode
-    from urllib.request import urlopen, Request
-    from urllib.error import HTTPError, URLError
-except ImportError:
-    from urllib import urlencode
-    from urllib2 import urlopen, Request, HTTPError, URLError
-try:
-    # Python2/3 have different user input APIs
-    input = raw_input
-except NameError:
-    pass
-
-
-# Are we in the Travis testing environment?
-if os.environ.get("TRAVIS"):
-    TEST = True
-else:
-    TEST = False
-
-ENDPOINT = "http://localhost:5000/collect"
-
-
-def python_version():
-    try:
-        # python 2.6 does this differently...
-        return "%d.%d.%d" % (version_info.major, version_info.minor, version_info.micro)
-    except:
-        return "%d.%d.%d" % (version_info[0], version_info[1], version_info[2])
-
-
-def post_to_api(data, endpoint):
-    print("Sending the following data:", end='\n\n')
-    pprint(data)
-    print()
-    print("✨ Note: All private libraries are filtered out before hitting the database ✨", end='\n\n')
-    if not TEST:
-        if input("🔷 Please confirm sending this data to %s (Y/n): " % ENDPOINT) != "Y":
-            print("Aborted sending.")
-            return
-    print()
-    data = json.dumps(data)
-    if python_version() >= "3":
-        # converts to bytes
-        data = str.encode(data)
-
-    req = Request(endpoint, data=data, headers={"Content-Type": "application/json"})
-    try:
-        resp = urlopen(req)
-        print("🎉 Sent successfully. Thank you for particpating in the survey")
-    except URLError as e:
-        if e.code == 400:
-            print("Data validation failure. Correct your inputs and try again.")
-        else:
-            print("Connection to endpoint failed. Try again later?")
-    except HTTPError:
-        print("Server failed. Try again later?")
-
-
-def generate_uuid():
-    uuid = str(uuid4())
-    print("""You unique identifier is `%s`. Please provide this to us 
-if you wish to delete your data from our database."""
-        % uuid, end="\n\n")
-    return uuid
-
-data = {
-    "primary_use": PRIMARY_USE_OF_PYTHON,
-    "uuid": generate_uuid(),
-    "list_of_installed_packages": [(d.project_name, d.version) for d in pkg_resources.working_set],
-    "test": TEST,
-    "platform": platform,
-    "python_version": python_version(),
-    "years_using_python": YEARS_USING_PYTHON,
-}
-
-post_to_api(data, ENDPOINT)
+          <code class="python" id="code">{{code}}
         </code>
-        md5 check sum is ddeef857448170385fad1c3690d954a9
+        md5 check sum is {{md5hash}}
       </pre>
 
       <h2 id="FAQs"> FAQs </h2>
@@ -152,8 +55,12 @@ post_to_api(data, ENDPOINT)
       <p> Yes, so long as you hold onto the unique identifier we generate for you. The script will print out a UUID to the screen. Then you can email us at {{email}} with the request to delete the data associated with your UUID.
       <h3> Are references to my private libraries saved?</h3>
       <p> <bold>We do our best to avoid this.</bold> On the server side, we have a list of all public PyPI libraries. We filter your list against this list before the data touches the database. (It may happen that your private library has the same name as a public library, however, in which case it will not be filtered.)
+      <h3> I have multiple Python environments - which should I use? </h3>
+      <p> Two options: either run this script in each environment, <i>or</i> run this script in the one you have open right now. Data collection on either option is appreciated.</p>
       <h3> Where can I see the survey results?</h3>
       <p> Periodically, we will be dumping the data to a public location. Stay tuned.</p>
+      <h3> Why not just mine <code>requirements.txt</code> files on Github?</h3>
+      <p> That's useful to know, but answers a different question. Consider this analogy: "what ingredients are paired often in a supermarket" vs "what pairs of food/ingredients people actually take home". We want to answer the latter question, which means investigating actual grocery carts. </p>
       <h3> Who are you? </h3>
       <p> I'm <a href="http://github.com/camdavidsonpilon">Cam Davidson-Pilon</a>, a long-time Python developer who works on data science open source projects.</p>
 
