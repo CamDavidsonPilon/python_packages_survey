@@ -44,9 +44,8 @@ try:
 except NameError:
     pass
 
-# Are we in the Travis testing environment?
 TEST = True if os.environ.get("TRAVIS") else False
-
+HIDE_EMOJI = True if (os.name == "nt" or TEST) else False
 ENDPOINT = "https://python-packages-survey.com/collect"
 
 
@@ -59,15 +58,15 @@ def python_version():
 
 
 def post_to_api(data, endpoint):
-    print("Sending the following data:", end='\n\n')
+    console_print("Sending the following data:", end='\n\n')
     pprint(data)
     print()
-    print("✨ All private libraries are filtered out before hitting the database ✨", end='\n\n')
-    print("Your unique identifier is `%s`." % data['uuid'])
-    print("""Please provide this to us if you wish to delete your data from our database.""", end='\n\n')
+    console_print("✨ All private libraries are filtered out before hitting the database ✨", end='\n\n')
+    console_print("Your unique identifier is `%s`." % data['uuid'])
+    console_print("""Please provide this to us if you wish to delete your data from our database.""", end='\n\n')
     if not TEST:
         if input("🔷 Please confirm sending this data to %s (Y/n): " % ENDPOINT) != "Y":
-            print("Aborted sending.")
+            console_print("Aborted sending.")
             return
     print()
     data = json.dumps(data)
@@ -78,16 +77,25 @@ def post_to_api(data, endpoint):
     req = Request(endpoint, data=data, headers={"Content-Type": "application/json"})
     try:
         resp = urlopen(req)
-        print("🎉 Sent successfully. Thank you for participating in the survey!")
+        console_print("🎉 Sent successfully. Thank you for participating in the survey!")
     except URLError as e:
-        print("Possible data validation failure or connection to endpoint failed. Try again later?")
+        console_print("Possible data validation failure or connection to endpoint failed. Try again later?")
     except HTTPError:
-        print("Server failed. Try again later?")
+        console_print("Server failed. Try again later?")
 
 
 def generate_uuid():
     uuid = str(uuid4())
     return uuid
+
+def console_print(text, *args, **kwargs):
+    """Given a string, console_prints to console by first stripping emoji if applicable."""
+    if HIDE_EMOJI:
+        clean_text = ''.join(char for char in text if char in printable)
+        print(clean_text.strip(), *args, **kwargs)
+    else:
+        print(text, *args, **kwargs)
+
 
 data = {
     "primary_use": PRIMARY_USE_OF_PYTHON,
