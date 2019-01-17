@@ -21,7 +21,7 @@
         <h3> Over <span style="background: #d2d2d2">{{count}}</span> people have already answered the survey!</h3>
 
         <h2> What is the Python Packages Survey? </h2>
-        <p> The Python Packages Survey was developed to help open source software authors understand their users' environments so the authors can build more reliable, robust, and performant software. This anonymous survey is for any developer who has worked with Python, and we hope to capture all systems: your local environment, production enviroments, remote environments, etc. <b>Your partcipation will help open source developers understand their users' better</b>.</p>
+        <p> The Python Packages Survey was developed to help open source software authors understand their users' environments so the authors can build more reliable, robust, and performant software. This anonymous survey is for any developer who has worked with Python, and we hope to capture all systems: your local environment, production enviroments, remote environments, etc. <b>Your participation will help open source developers understand their users' better</b>.</p>
 
         <p>Our path is to be 100% transparent in data collection and data handling. Hence we have open sourced all the code, and will batch dump the data periodically for others to use. In our FAQs section, we answer your questions about data usage, privacy and multiple environments.</p>
 
@@ -38,7 +38,7 @@
         <ol>
           <li> Copy the Python script below to the computer you want to submit results for. Save this script as a Python file.</li>
           <li> (Optional) There are a few questions in the beginning of the script we encourage you to fill in.</li>
-          <li> Execute the script to submit. <code>$ python &#x3C;your_file.py&#x3E; </code> </li>
+          <li> Execute the script, <code>$ python &#x3C;your_file.py&#x3E; </code>. The script will ask you to confirm the data before submission.</li>
           <li> Finished! </li>
         <pre>
           <span id="code_span">
@@ -66,7 +66,7 @@
       <h3> Where can I see the survey results?</h3>
       <p> Periodically, we will be dumping the data to a public location. Stay tuned.</p>
       <h3> Why not just mine <code>requirements.txt</code> files on Github?</h3>
-      <p> That's useful to know, but answers a different question. Consider this analogy: "what ingredients are paired often in a supermarket" vs "what pairs of food/ingredients people actually take home". We want to answer the latter question, which means investigating actual grocery carts. </p>
+      <p> That's a useful dataset, but it answers a different question. Consider this analogy: "what ingredients are paired often in a supermarket" vs "what pairs of food/ingredients people actually take home". We want to answer the latter question, which means investigating actual grocery carts. </p>
       <h3> Who are you? </h3>
       <p> I'm <a href="http://github.com/camdavidsonpilon">Cam Davidson-Pilon</a>, a long-time Python developer who works on open source data science libraries.</p>
 
@@ -78,7 +78,9 @@
       </section>
     </div>
     <div id="footer_wrap" class="outer">
-      <p>  </p>
+      <div class="inner">
+        <p id="footer">Special thanks to @CarysMills.</p>
+      </div>
     </div>
     <script type="text/javascript">
       new ClipboardJS('.btn');

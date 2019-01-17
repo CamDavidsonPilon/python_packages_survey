@@ -56,6 +56,11 @@ body {
     border-top: 8px solid transparent;
     border-image: url(/static/larger_border.png) 100% 1 0 stretch;
     background: #212121;
+    color: white;
+}
+
+#footer {
+  max-width: 800px;
 }
 
 .copy-button {
