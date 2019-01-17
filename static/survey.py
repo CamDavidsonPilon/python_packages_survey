@@ -66,7 +66,7 @@ def post_to_api(data, endpoint):
     console_print("Your unique identifier is `%s`." % data['uuid'])
     console_print("""Please provide this to us if you wish to delete your data from our database.""", end='\n\n')
     if not TEST:
-        if input("🔷 Please confirm sending this data to %s (Y/n): " % ENDPOINT) != "Y":
+        if input("Please confirm sending this data to %s (Y/n): " % ENDPOINT) != "Y":
             console_print("Aborted sending.")
             return
     print()

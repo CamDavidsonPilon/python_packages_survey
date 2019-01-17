@@ -122,9 +122,8 @@ a {
 .btn {
   color: #333;
   cursor: pointer;
-  background: linear-gradient(#fcfcfc,#eee);
-  border: 1px solid #d5d5d5;
-  border-radius: 3px;
+  background: white;
+  border: 2px solid #8e8d8d;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -133,7 +132,7 @@ a {
   margin-top: 10px;
   position: absolute;
   right: 25px;
-  transition: all 0.4s;
+  transition: all 0.2s;
 }
 
 #success {
