@@ -65,10 +65,9 @@ def post_to_api(data, endpoint):
     print("Sending the following data:", end='\n\n')
     pprint(data)
     print()
-    print("✨All private libraries are filtered out before hitting the database ✨", end='\n\n')
+    print("✨ All private libraries are filtered out before hitting the database ✨", end='\n\n')
     print("Your unique identifier is `%s`." % data['uuid'])
-    print("""Please provide this to us if you wish 
-to delete your data from our database in the future.""", end='\n\n')
+    print("""Please provide this to us if you wish to delete your data from our database.""", end='\n\n')
     if not TEST:
         if input("🔷 Please confirm sending this data to %s (Y/n): " % ENDPOINT) != "Y":
             print("Aborted sending.")
@@ -82,7 +81,7 @@ to delete your data from our database in the future.""", end='\n\n')
     req = Request(endpoint, data=data, headers={"Content-Type": "application/json"})
     try:
         resp = urlopen(req)
-        print("🎉 Sent successfully. Thank you for particpating in the survey!")
+        print("🎉 Sent successfully. Thank you for participating in the survey!")
     except URLError as e:
         if e.code == 400:
             print("Data validation failure. Correct your inputs and try again.")
