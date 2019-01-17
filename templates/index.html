@@ -12,6 +12,7 @@
 
     <div id="header_wrap" class="outer">
         <header class="inner">
+          <span id="author"> By: <a href="https://github.com/CamDavidsonPilon">@CamDavidsonPilon</a> </span>
           <h1 id="title">Python Packages Survey</h1>
         </header>
     </div>
@@ -20,7 +21,7 @@
         <h3> Over <span style="background: #d2d2d2">{{count}}</span> people have already answered the survey!</h3>
 
         <h2> What is the Python Packages Survey? </h2>
-        <p> The Python Packages Survey was developed to help open source software authors understand their users environments so the authors can build more reliable, robust, and performant software. This anonymous survey is for any developer who has worked with Python, and we hope to capture all systems: your local environment, production enviroments, remote environments, etc. <b>Your partcipation will help open source developers</b>.</p>
+        <p> The Python Packages Survey was developed to help open source software authors understand their users' environments so the authors can build more reliable, robust, and performant software. This anonymous survey is for any developer who has worked with Python, and we hope to capture all systems: your local environment, production enviroments, remote environments, etc. <b>Your partcipation will help open source developers understand their users' better</b>.</p>
 
         <p>Our path is to be 100% transparent in data collection and data handling. Hence we have open sourced all the code, and will batch dump the data periodically for others to use. In our FAQs section, we answer your questions about data usage, privacy and multiple environments.</p>
 
@@ -35,9 +36,9 @@
         <h2 id="partcipation"> Participate </h2>
         <p> Completing our survey is easy: </p>
         <ol>
-          <li> Copy the Python script below to the computer you want to submit results for. This could be as a new Python file in your IDE. </li>
+          <li> Copy the Python script below to the computer you want to submit results for. Save this script as a Python file.</li>
           <li> (Optional) There are a few questions in the beginning of the script we encourage you to fill in.</li>
-          <li> Execute the script to submit. </li>
+          <li> Execute the script to submit. <code>$ python &#x3C;your_file.py&#x3E; </code> </li>
           <li> Finished! </li>
         <pre>
           <span id="code_span">
@@ -57,7 +58,7 @@
       <h3> What are the risk of running random scripts from the web? </h3>
       <p>There are lots of risk with running random scripts taken from the web and generally it's a bad idea. However, we've done two sensible things to build your confidence. The first is that we open sourced our code, both the script (obviously) and the backend. The repository is <a href="https://github.com/CamDavidsonPilon/pip_packages_survey">here</a>. Secondly, I've had some trusted Python developers review the script to confirm nothing malicious is in it. Their reviews are <a href="">here</a>.</p>
       <h3> Can I delete my data after? </h3>
-      <p> Yes, so long as you hold onto the unique identifier we generate for you. The script will print out a UUID to the screen. Then you can email us at {{email}} with the request to delete the data associated with your UUID.
+      <p> Yes, so long as you hold onto the unique identifier we generate for you. The script will print out a UUID to the screen. Then you can email us at <code>{{email}}</code> with the request to delete the data associated with your UUID.
       <h3> Are references to my private libraries saved?</h3>
       <p> <bold>We do our best to avoid this.</bold> On the server side, we have a list of all public PyPI libraries. We filter your list against this list before the data touches the database. (It may happen that your private library has the same name as a public library, however, in which case it will not be filtered.)
       <h3> I have multiple Python environments - which should I use? </h3>
@@ -70,7 +71,7 @@
       <p> I'm <a href="http://github.com/camdavidsonpilon">Cam Davidson-Pilon</a>, a long-time Python developer who works on open source data science libraries.</p>
 
       <h2 id="contact"> Contact </h2>
-      <p> If you have any questions or concerns, please reach out to {{email}} or post an issue in our <a href="https://github.com/CamDavidsonPilon/pip_packages_survey">repository</a>.</p>
+      <p> If you have any questions or concerns, please reach out to <code>{{email}}</code> or post an issue in our <a href="https://github.com/CamDavidsonPilon/pip_packages_survey">repository</a>.</p>
 
       <p> Thanks for taking the time to make the Python ecosystem better!</p>
 

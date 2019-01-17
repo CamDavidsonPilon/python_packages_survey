@@ -103,9 +103,24 @@ h2 {
   background: url(/static/border.png) repeat-x bottom;
 }
 
+#author {
+  top: 5%;
+  position: absolute;
+  right: -30%;
+  color: white;
+}
+
+
+#author a {
+  color: white;
+}
 
 p {
     margin: 10px 0 15px 0;
+}
+
+a {
+  color: #348ABD;
 }
 
 
