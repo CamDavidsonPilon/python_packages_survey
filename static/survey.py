@@ -64,7 +64,7 @@ def post_to_api(data, endpoint):
     print()
     console_print("✨ All private libraries are filtered out before hitting the database ✨", end='\n\n')
     console_print("Your unique identifier is `%s`." % data['uuid'])
-    console_print("""Please provide this to us if you wish to delete your data from our database.""", end='\n\n')
+    console_print("Please provide this to us if you wish to delete your data from our database.", end='\n\n')
     if not TEST:
         if input("Please confirm sending this data to %s (Y/n): " % ENDPOINT) != "Y":
             console_print("Aborted sending.")
@@ -90,7 +90,7 @@ def generate_uuid():
     return uuid
 
 def console_print(text, *args, **kwargs):
-    """Given a string, console_prints to console by first stripping emoji if applicable."""
+    # Given a string, console_prints to console by first stripping emoji if applicable.
     if HIDE_EMOJI:
         clean_text = ''.join(char for char in text if char in printable)
         print(clean_text.strip(), *args, **kwargs)
