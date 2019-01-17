@@ -18,7 +18,7 @@ PRODUCTION_SYSTEM = None  # True, False
 # How many years have you been using Python?
 YEARS_USING_PYTHON = None  # integer
 
-# Appoximately, how many days per month do you work with Python?
+# Approximately, how many days per month do you work with Python?
 PYTHON_MONHTLY_USAGE = None  # integer <= 30
 
 #############################################################
@@ -65,9 +65,10 @@ def post_to_api(data, endpoint):
     print("Sending the following data:", end='\n\n')
     pprint(data)
     print()
-    print("✨ Note: All private libraries are filtered out before hitting the database ✨", end='\n\n')
+    print("✨All private libraries are filtered out before hitting the database ✨", end='\n\n')
     print("Your unique identifier is `%s`." % data['uuid'])
-    print("Please provide this to us if you wish to delete your data from our database in the future.", end='\n\n')
+    print("""Please provide this to us if you wish 
+to delete your data from our database in the future.""", end='\n\n')
     if not TEST:
         if input("🔷 Please confirm sending this data to %s (Y/n): " % ENDPOINT) != "Y":
             print("Aborted sending.")
