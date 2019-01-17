@@ -9,14 +9,15 @@ from __future__ import print_function
 #  'scripting', 'software development', 'other'
 PRIMARY_USE_OF_PYTHON = None  # a string above
 
-# Are you a contributer to open source software?
+# Have you ever contributed a lot of time to an open source project?
 CONTRIBUTER_TO_OSS = None  # True, False
 
-# Is this a production system (i.e., not a local / development computer)?
+# Is this running on a production system 
+# (i.e., not a local / development / personal computer)?
 PRODUCTION_SYSTEM = None  # True, False
 
 # How many years have you been using Python?
-YEARS_USING_PYTHON = None  # integer
+YEARS_USING_PYTHON = None  # float
 
 # Approximately, how many days per month do you work with Python?
 PYTHON_MONHTLY_USAGE = None  # integer <= 30
@@ -44,7 +45,7 @@ except NameError:
     pass
 
 # Are we in the Travis testing environment?
-TEST = True if os.environ.get("TRAVIS") else ELASE
+TEST = True if os.environ.get("TRAVIS") else False
 
 ENDPOINT = "https://python-packages-survey.com/collect"
 
@@ -79,10 +80,7 @@ def post_to_api(data, endpoint):
         resp = urlopen(req)
         print("🎉 Sent successfully. Thank you for participating in the survey!")
     except URLError as e:
-        if e.code == 400:
-            print("Data validation failure. Correct your inputs and try again.")
-        else:
-            print("Connection to endpoint failed. Try again later?")
+        print("Possible data validation failure or connection to endpoint failed. Try again later?")
     except HTTPError:
         print("Server failed. Try again later?")
 

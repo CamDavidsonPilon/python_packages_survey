@@ -44,7 +44,7 @@ class Environment(db.Model):
     created_at =     db.Column(db.DateTime(), default=datetime.datetime.now)
     primary_use =    db.Column(db.Enum('science & engineering', 'web development', 'education', 'scripting', 'software development', 'other', name='primary_use'))
     python_version = db.Column(db.String(64))
-    years_using_python = db.Column(db.Integer())
+    years_using_python = db.Column(db.Float())
     python_monthly_usage = db.Column(db.Integer())
 
     def __init__(self, test, platform, uuid, packages, primary_use, python_version, years_using_python, python_monthly_usage):
@@ -80,7 +80,6 @@ def collect():
         
         libs = utils.load_from_disk_pypi_libraries()
         public_libs = [(name, version) for (name, version) in data['list_of_installed_packages'] if name in libs]
-
         row = Environment(
             data['test'], 
             data['platform'], 
