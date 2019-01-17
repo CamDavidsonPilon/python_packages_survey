@@ -17,6 +17,6 @@ matrix:
 install:
   - pip install -r travis_requirements.txt
 script:
-  - python script.py
+  - python static/script.py
 notifications:
   email: false
