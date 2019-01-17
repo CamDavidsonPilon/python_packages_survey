@@ -66,7 +66,7 @@ def home():
 
     email = "info@python-packages-survey.com"
     
-    code = open('script.py', 'r').read()
+    code = open('static/survey.py', 'r').read()
     md5hash = utils.md5checksum(code)
 
     return render_template('index.html', count=count, email=email, code=code, md5hash=md5hash)

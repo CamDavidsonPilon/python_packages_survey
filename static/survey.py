@@ -43,12 +43,8 @@ try:
 except NameError:
     pass
 
-
 # Are we in the Travis testing environment?
-if os.environ.get("TRAVIS"):
-    TEST = True
-else:
-    TEST = False
+TEST = True if os.environ.get("TRAVIS") else ELASE
 
 ENDPOINT = "https://python-packages-survey.com/collect"
 
