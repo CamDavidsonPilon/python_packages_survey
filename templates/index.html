@@ -27,14 +27,14 @@
 
         <div id="TOC">
           <ol>
-            <li> <a href="#partcipation">Participate</a> </li>
+            <li> <a href="#partcipation">How to participate</a> </li>
             <li> <a href="#FAQs">FAQs</a> </li>
             <li> <a href="#contact">Contact</a> </li>
           </ol>
         </div>
 
-        <h2 id="partcipation"> Participate </h2>
-        <p> Completing our survey is easy: </p>
+        <h2 id="partcipation">How to participate </h2>
+        <p> Completing the survey is easy: </p>
         <ol>
           <li> Copy the Python script below to the computer you want to submit results for. Save this script as a Python file.</li>
           <li> (Optional) There are a few questions in the beginning of the script we encourage you to fill in.</li>
@@ -49,7 +49,6 @@
             <span id="success">Copied!</span>
             {{code}}
           </code>
-          <p>md5 check sum is {{md5hash}}</p>
         </div>
       </pre>
 
@@ -57,18 +56,25 @@
 
       <h3> Why are we doing this? </h3>
       <p> You can read about the current problems, solutions, and business use cases of this data <a href="https://www.notion.so/camdp/Why-are-we-doing-this-332c3898242a4ce8bf7b784b9e1afa62">here</a>. </p>
+
       <h3> What are the risk of running random scripts from the web? </h3>
-      <p>There are lots of risk with running random scripts taken from the web and generally it's a bad idea. However, we've done two sensible things to build your confidence. The first is that we open sourced our code, both the script (obviously) and the backend. The repository is <a href="https://github.com/CamDavidsonPilon/pip_packages_survey">here</a>. Secondly, I've had some trusted Python developers review the script to confirm nothing malicious is in it. Their reviews are <a href="">here</a>.</p>
+      <p>There are lots of risk with running random scripts taken from the web and generally it's a bad idea. However, we've done two sensible things to build your confidence. The first is that we open sourced our code, both the script (obviously) and the backend. The repository is <a href="https://github.com/CamDavidsonPilon/pip_packages_survey">here</a>. Secondly, I've had some trusted Python developers review the script to confirm nothing malicious is in it. Their reviews are <a href="">here</a>. The checksum of the above script is <code>{{md5hash}}</code>.</p>
+
       <h3> Can I delete my data after? </h3>
-      <p> Yes, so long as you hold onto the unique identifier we generate for you. The script will print out a UUID to the screen. Then you can email us at <code>{{email}}</code> with the request to delete the data associated with your UUID.
+      <p> Yes, so long as you hold onto the unique identifier we generate for you. The script will print out a UUID to the screen. Then you can email us at <code>{{email}}</code> with the request to delete the data associated with your UUID.</p>
+
       <h3> Are references to my private libraries saved?</h3>
-      <p> <bold>We do our best to avoid this.</bold> On the server side, we have a list of all public PyPI libraries. We filter your list against this list before the data touches the database. (It may happen that your private library has the same name as a public library, however, in which case it will not be filtered.)
+      <p> <bold>We do our best to avoid this.</bold> On the server side, we have a list of all public PyPI libraries. We filter your list against this list before the data touches the database. (It may happen that your private library has the same name as a public library, however, in which case it will not be filtered.)</p>
+
       <h3> I have multiple Python environments - which should I use? </h3>
       <p> Two options: either run this script in each environment, <i>or</i> run this script in the one you have open right now. Data collection on either option is appreciated.</p>
+
       <h3> Where can I see the survey results?</h3>
       <p> Periodically, we will be dumping the data to a public location. Stay tuned.</p>
+
       <h3> Why not just mine <code>requirements.txt</code> files on Github?</h3>
       <p> That's a useful dataset, but it answers a different question. Consider this analogy: "what ingredients are paired often in a supermarket" vs "what pairs of food/ingredients people actually take home". We want to answer the latter question, which means investigating actual grocery carts. </p>
+
       <h3> Who are you? </h3>
       <p> I'm <a href="http://github.com/camdavidsonpilon">Cam Davidson-Pilon</a>, a long-time Python developer who works on open source data science libraries.</p>
 

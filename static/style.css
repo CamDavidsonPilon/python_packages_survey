@@ -63,24 +63,16 @@ body {
   max-width: 800px;
 }
 
-pre{
-    margin-left: -2%;
-}
 
 #code{
     border: 3px solid #8e8d8d;
     background-color: #ececec;
     padding: 10px 15px;
     line-height: 1.25;
-    user-select: none;
 }
 
 #codeContainer {
   max-width: 100%;
-  white-space: -moz-pre-wrap; /* Mozilla */
-  white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
-  word-wrap: break-word; /* IE */
-  word-break: break-all;
 }
 
 ol {
