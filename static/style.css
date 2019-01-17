@@ -119,6 +119,11 @@ a {
   color: #348ABD;
 }
 
+#copy{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .btn {
   color: #333;
   cursor: pointer;

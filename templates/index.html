@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/googlecode.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-    <link rel="shortcut icon" type="image/png" href="/static/favicon.ico"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico"/>
 
     <script>hljs.initHighlightingOnLoad();</script>
   </head>
@@ -37,7 +37,7 @@
         <h2 id="partcipation">How to participate </h2>
         <p> Completing the survey is as easy as running a Python script: </p>
         <ol>
-          <li> <a href="static/survey.py" download>Download</a>¹ or copy the Python script below to the computer you want to submit results for. Save this script as a Python file (example: <code> survey.py</code>).</li>
+          <li> <a href="static/survey.py" download>Download</a>¹ or <a id="copy" data-clipboard-target="#code">copy</a> the Python script below to the computer you want to submit results for. Save this script as a Python file (example: <code> survey.py</code>).</li>
           <li> (Optional) There are a few questions in the beginning of the script we encourage you to fill in.</li>
           <li> Execute the script, <code>$python survey.py </code> </li>
           <li> The script will ask you to confirm the data before submission.</li>
@@ -94,17 +94,27 @@
       </div>
     </div>
     <script type="text/javascript">
-      const clipboard = new ClipboardJS('.btn');
+      const clipboard_btn = new ClipboardJS('.btn');
 
-      clipboard.on('success', (event) => {
+      clipboard_btn.on('success', (event) => {
         event.clearSelection();
         document.getElementById('success').style.opacity = 1;
 
         setTimeout(() => {  
           document.getElementById('success').style.opacity = 0;
-        }, 600);
+        }, 450);
       });
 
+      const clipboard_copy = new ClipboardJS('#copy');
+
+      clipboard_copy.on('success', (event) => {
+        event.clearSelection();
+        document.getElementById('copy').style.opacity = 0;
+
+        setTimeout(() => {  
+          document.getElementById('copy').style.opacity = 1;
+        }, 50);
+      });
 
     </script>
   </body>
