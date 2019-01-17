@@ -131,7 +131,7 @@ a {
   -ms-user-select: none;
   user-select: none;
   -webkit-appearance: none;
-  margin-top: -20px;
+  margin-top: 40px;
   position: absolute;
   right: 30px;
   transition: all 0.4s;

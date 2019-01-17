@@ -40,17 +40,18 @@
           <li> (Optional) There are a few questions in the beginning of the script we encourage you to fill in.</li>
           <li> Execute the script, <code>$ python &#x3C;your_file.py&#x3E; </code>. The script will ask you to confirm the data before submission.</li>
           <li> Finished! </li>
-        <pre>
-          <div id="codeContainer">
-          <code class="python" id="code">
-            <button class="btn" data-clipboard-target="#code">
-                <img src="static/clippy.svg" alt="Copy to clipboard" width=13>
-            </button>
-            <span id="success">Copied!</span>
-            {{code}}
-          </code>
+        </ol>
+        <div id="codeContainer">
+          <button class="btn" data-clipboard-target="#code">
+              <img src="static/clippy.svg" alt="Copy to clipboard" width=13 style="padding: 2">
+          </button>
+          <span id="success">Copied!</span>
+          <pre>
+            <code class="python" id="code">
+{{code}}
+            </code>
+          </pre>
         </div>
-      </pre>
 
       <h2 id="FAQs"> FAQs </h2>
 
@@ -93,7 +94,8 @@
     <script type="text/javascript">
       const clipboard = new ClipboardJS('.btn');
 
-      clipboard.on('success', () => {
+      clipboard.on('success', (event) => {
+        event.clearSelection();
         document.getElementById('success').style.opacity = 1;
 
         setTimeout(() => {  
