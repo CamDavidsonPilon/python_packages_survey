@@ -130,15 +130,16 @@ a {
   -ms-user-select: none;
   user-select: none;
   -webkit-appearance: none;
-  margin-top: 40px;
+  margin-top: 10px;
   position: absolute;
-  right: 30px;
+  right: 25px;
   transition: all 0.4s;
 }
 
 #success {
   position: absolute;
-  right: 26px;
+  right: 63px;
+  margin-top: 12px;
   font-size: 14px;
   opacity: 0;
   transition: opacity 0.4s;
