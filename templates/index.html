@@ -41,14 +41,16 @@
           <li> Execute the script to submit. <code>$ python &#x3C;your_file.py&#x3E; </code> </li>
           <li> Finished! </li>
         <pre>
-          <span id="code_span">
+          <div id="codeContainer">
+          <code class="python" id="code">
             <button class="btn" data-clipboard-target="#code">
-              <img src="static/clippy.svg" alt="Copy to clipboard" width=13>
+                <img src="static/clippy.svg" alt="Copy to clipboard" width=13>
             </button>
-          </span>
-          <code class="python" id="code">{{code}}
-        </code>
-        md5 check sum is {{md5hash}}
+            <span id="success">Copied!</span>
+            {{code}}
+          </code>
+          <p>md5 check sum is {{md5hash}}</p>
+        </div>
       </pre>
 
       <h2 id="FAQs"> FAQs </h2>
@@ -81,7 +83,16 @@
       <p>  </p>
     </div>
     <script type="text/javascript">
-      new ClipboardJS('.btn');
+      const clipboard = new ClipboardJS('.btn');
+
+      clipboard.on('success', () => {
+        document.getElementById('success').style.opacity = 1;
+
+        setTimeout(() => {  
+          document.getElementById('success').style.opacity = 0;
+        }, 600);
+      });
+
 
     </script>
   </body>
