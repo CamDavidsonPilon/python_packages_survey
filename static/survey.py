@@ -27,6 +27,7 @@ PYTHON_MONHTLY_USAGE = None  # integer <= 30
 from uuid import uuid4
 from pprint import pprint
 import pkg_resources
+from string import printable
 import os
 import json
 from sys import platform, version_info
