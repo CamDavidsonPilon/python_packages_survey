@@ -1,5 +1,6 @@
 flask>=1.0
 flask-sqlalchemy
+flask_sslify
 sqlalchemy
 psycopg2-binary
 lxml

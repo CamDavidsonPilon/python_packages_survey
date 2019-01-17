@@ -6,6 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 import sqlalchemy
 from sqlalchemy.sql import text
+from flask_sslify import SSLify
+
 
 import utils
 
@@ -27,6 +29,7 @@ app.config.update(
     SQLALCHEMY_DATABASE_URI=database_uri,
     SQLALCHEMY_TRACK_MODIFICATIONS=False
 )
+sslify = SSLify(app)
 
 db = SQLAlchemy(app)
 
