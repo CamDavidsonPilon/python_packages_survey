@@ -59,7 +59,7 @@ def home():
     sql = """SELECT count FROM table_cnt WHERE table_oid = 'environment'::regclass"""
     count = next(db.engine.execute(text(sql)))[0]
 
-    email = "cam.davidson.pilon@gmail.com"
+    email = "info@python-packages-survey.com"
     
     code = open('script.py', 'r').read()
     md5hash = utils.md5checksum(code)

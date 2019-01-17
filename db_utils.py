@@ -1,0 +1,26 @@
+from sqlalchemy.sql import text
+from main import db
+
+def drop_tables():
+    db.drop_all()
+
+def create_tables():
+    db.create_all()
+
+
+def create_trigger():
+    sql = """
+    DROP TABLE table_cnt;
+    CREATE TABLE table_cnt (table_oid Oid PRIMARY KEY, count int);
+
+    CREATE FUNCTION count_increment() RETURNS TRIGGER AS $_$
+    BEGIN
+    UPDATE table_cnt SET count = count + 1 WHERE table_oid = TG_RELID;
+    RETURN NEW;
+    END $_$ LANGUAGE 'plpgsql';
+
+    CREATE TRIGGER increment_trigger AFTER INSERT ON environment FOR EACH ROW EXECUTE PROCEDURE count_increment();
+
+    INSERT INTO table_cnt VALUES ('environment'::regclass, 0);
+    """
+    db.engine.execute(text(sql))
