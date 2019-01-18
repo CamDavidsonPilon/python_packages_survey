@@ -50,7 +50,7 @@ gcloud app deploy
 
 To modify the tables in prod GCP (run `./cloud_sql_proxy`)
 ```
-
+$ ./cloud_sql_proxy -dir=/cloudsql &
 $ DBUSER=postgres DBPASS=<pass> INSTANCE_CONNECTION_NAME=pip-project-survey:northamerica-northeast1:testdb DBDATABASE=testdb ipython
 > from main import db
 > db.create_all()  # inverse is db.drop_all()
