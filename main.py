@@ -44,10 +44,11 @@ class Environment(db.Model):
     created_at =     db.Column(db.DateTime(), default=datetime.datetime.now)
     primary_use =    db.Column(db.Enum('science & engineering', 'web development', 'education', 'scripting', 'software development', 'other', name='primary_use'))
     python_version = db.Column(db.String(64))
+    production_system = db.Column(db.Boolean())
     years_using_python = db.Column(db.Float())
     python_monthly_usage = db.Column(db.Integer())
 
-    def __init__(self, test, platform, uuid, packages, primary_use, python_version, years_using_python, python_monthly_usage):
+    def __init__(self, test, platform, uuid, packages, primary_use, python_version, years_using_python, python_monthly_usage, production_system):
         self.test = test
         self.platform = platform
         self.packages = packages
@@ -56,6 +57,7 @@ class Environment(db.Model):
         self.python_version = python_version
         self.years_using_python = years_using_python
         self.python_monthly_usage = python_monthly_usage
+        self.production_system = production_system
 
 
 
@@ -89,6 +91,7 @@ def collect():
             data['python_version'],
             data['years_using_python'],
             data['python_monthly_usage'],
+            data['production_system'],
         )
         try:
             db.session.add(row)

@@ -1,29 +1,5 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-
-# 🔷 Optional answers to provide, but will help with analysis 🔷
-
-# We'd like to know about why you use Python most often.
-# Provide the closest option in:
-#  'science & engineering', 'web development', 'education',
-#  'scripting', 'software development', 'other'
-PRIMARY_USE_OF_PYTHON = None  # a string above
-
-# Have you ever contributed a lot of time to an open source project?
-CONTRIBUTER_TO_OSS = None  # True, False
-
-# Is this running on a production system 
-# (i.e., not a local / development / personal computer)?
-PRODUCTION_SYSTEM = None  # True, False
-
-# How many years have you been using Python?
-YEARS_USING_PYTHON = None  # float
-
-# Approximately, how many days per month do you work with Python?
-PYTHON_MONHTLY_USAGE = None  # integer <= 30
-
-#############################################################
-
 from uuid import uuid4
 from pprint import pprint
 import pkg_resources
@@ -45,10 +21,10 @@ try:
 except NameError:
     pass
 
+PRIMARY_USE_OF_PYTHON = YEARS_USING_PYTHON = PYTHON_MONHTLY_USAGE = CONTRIBUTER_TO_OSS = None
 TEST = True if os.environ.get("TRAVIS") else False
-HIDE_EMOJI = True if (os.name == "nt" or TEST) else False
+HIDE_EMOJI = True if (platform == "win32" or TEST) else False
 ENDPOINT = "https://python-packages-survey.com/collect"
-
 
 def python_version():
     try:
@@ -56,7 +32,6 @@ def python_version():
         return "%d.%d.%d" % (version_info.major, version_info.minor, version_info.micro)
     except:
         return "%d.%d.%d" % (version_info[0], version_info[1], version_info[2])
-
 
 def post_to_api(data, endpoint):
     console_print("Sending the following data:", end='\n\n')
@@ -84,7 +59,6 @@ def post_to_api(data, endpoint):
     except HTTPError:
         console_print("Server failed. Try again later?")
 
-
 def generate_uuid():
     uuid = str(uuid4())
     return uuid
@@ -98,15 +72,46 @@ def console_print(text, *args, **kwargs):
         print(text, *args, **kwargs)
 
 
+def true_false_or_none(s):
+    return {'True': True, 'False': False}.get(s)
+
+print()
+console_print("""🔷 We'd like to start by asking you 5 questions about your Python usage. This will help with analysis. 
+You can hit [enter] to skip any question.""", end="\n\n")
+
+if not TEST:
+    CONTRIBUTER_TO_OSS = true_false_or_none(input("""Have you ever contributed a signficant amount of time to an open source project?
+(True/False): """)); print()
+
+    PRODUCTION_SYSTEM = true_false_or_none(input("""Is this running on a production system (i.e., not a local / development / personal computer)?
+(True/False): """)); print()
+
+    PRIMARY_USE_OF_PYTHON = str(input("""We'd like to know about why you use Python most often. Provide the closest option of: 
+    science & engineering
+    web development
+    education
+    scripting
+    software development
+    other
+(string): """)) or None; print()
+
+    YEARS_USING_PYTHON = str(input("""How many years have you been using Python?
+(float): """)) or None; print()
+
+    PYTHON_MONHTLY_USAGE = str(input("""Approximately, how many days per month do you work with Python?
+(int): """)) or None; print()
+
+
 data = {
-    "primary_use": PRIMARY_USE_OF_PYTHON,
     "uuid": generate_uuid(),
     "list_of_installed_packages": [(d.project_name, d.version) for d in pkg_resources.working_set],
     "test": TEST,
     "platform": platform,
     "python_version": python_version(),
+    "primary_use": PRIMARY_USE_OF_PYTHON,
     "years_using_python": YEARS_USING_PYTHON,
     "python_monthly_usage": PYTHON_MONHTLY_USAGE,
+    "production_system": PRODUCTION_SYSTEM,
 }
 
 post_to_api(data, ENDPOINT)
