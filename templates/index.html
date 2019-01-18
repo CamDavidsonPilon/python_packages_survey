@@ -19,7 +19,10 @@
     </div>
     <div id="main_content_wrap">
       <section id="main_content" class="inner">
-        <h3> Over <span style="background: #d2d2d2">{{count}}</span> people have already answered the survey!</h3>
+        <h3> Already <span style="background: #d2d2d2">{{count}}</span> people have already answered the survey!</h3>
+        {% if count < 100 %}
+        <h3> But we need hundreds more to get an accurate statistics.</h3>
+        {% else %}{% endif %}
 
         <h2> What is the Python Packages Survey? </h2>
         <p> The Python Packages Survey was developed to help open source software authors understand their users' environments so the authors can build more reliable, robust, and performant software. This anonymous survey is for any developer who has worked with Python, and we hope to capture all systems: your local environment, production enviroments, remote environments, etc. <b>Your participation will help open source developers understand their users' better</b>.</p>
@@ -61,7 +64,7 @@
       <h3 id="security"> What are the risk of running random scripts from the web? </h3>
       <p>There are lots of risk with running random scripts taken from the web and generally it's a bad idea. However, we've done sensible things to build your trust. First, we've open sourced our code, both the survey script (obviously) and the <a href="https://github.com/CamDavidsonPilon/pip_packages_survey">backend web server</a>.
 
-      </p> Your browser may warn you, or even prevent you, from downloading the Python script. That's expected. We enourage you to review the script if you feel worried. We've also asked some trusted Python developers review the survey script to confirm nothing malicious is in it. Their reviews are <a href="https://github.com/CamDavidsonPilon/python_packages_survey/issues/2">here</a>. The checksum of the above script is <code>{{md5hash}}</code>.</p>
+      </p> Your browser may warn you, or even prevent you, from downloading the Python script. That's expected. We enourage you to review the script if you feel worried. We've also asked some trusted Python developers review the survey script to confirm nothing malicious is in it. Their reviews are <a href="https://github.com/CamDavidsonPilon/python_packages_survey/issues/2">here</a>. The md5 checksum of the above script is <code>{{md5hash}}</code> (try <code>$ md5 survey.py</code> to confirm this).</p>
 
       <h3> Can I delete my data after? </h3>
       <p> Yes, so long as you hold onto the unique identifier we generate for you. The script will print out a UUID to the screen. Then you can email us at <code>{{email}}</code> with the request to delete the data associated with your UUID.</p>
