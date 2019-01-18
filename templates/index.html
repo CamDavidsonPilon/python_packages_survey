@@ -13,7 +13,7 @@
 
     <div id="header_wrap" class="outer">
         <header class="inner">
-          <span id="author">Author:<a href="https://github.com/CamDavidsonPilon">CamDavidsonPilon</a></span>
+          <span id="author"><a href="https://github.com/CamDavidsonPilon">CamDavidsonPilon  <img src="/static/github.png" width=16 \></a></span>
           <h1 id="title">Python Packages Survey</h1>
         </header>
     </div>
@@ -37,7 +37,7 @@
         <h2 id="partcipation">How to participate </h2>
         <p> Completing the survey is as easy as running a Python script: </p>
         <ol>
-          <li> <a href="static/survey.py" download>Download</a>¹ or <a id="copy" data-clipboard-target="#code">copy</a> the Python script below to the computer you want to submit results for. Save this script as a Python file (example: <code> survey.py</code>).</li>
+          <li> <a href="static/survey.zip" download>Download</a>¹ or <a id="copy" data-clipboard-target="#code">copy</a> the Python script below to the computer you want to submit results for. Save this script as a Python file (example: <code> survey.py</code>).</li>
           <li> (Optional) There are a few questions in the beginning of the script we encourage you to fill in.</li>
           <li> Execute the script, <code>$python survey.py </code> </li>
           <li> The script will ask you to confirm the data before submission.</li>
@@ -78,6 +78,9 @@
       <h3> Why not just mine <code>requirements.txt</code> files on Github?</h3>
       <p> That's a useful dataset, but it answers a different question. Consider this analogy: "what ingredients are paired often in a supermarket" vs "what pairs of food/ingredients people actually take home". We want to answer the latter question, which means investigating actual grocery carts. </p>
 
+      <h3> Doesn't PyPI/Conda/other distributers have this data?</h3>
+      <p> No. Though they have counts of downloads, they lack a unique identifier per download, so they can't track a users' download history (which would be unnecessary for them anyways). This survey is unique in that we get to see a snapshot of users environments. </p>
+
       <h3> Who are you? </h3>
       <p> I'm <a href="http://github.com/camdavidsonpilon">Cam Davidson-Pilon</a>, a long-time Python developer who works on open source data science libraries.</p>
 
@@ -102,7 +105,7 @@
 
         setTimeout(() => {  
           document.getElementById('success').style.opacity = 0;
-        }, 450);
+        }, 400);
       });
 
       const clipboard_copy = new ClipboardJS('#copy');
@@ -113,7 +116,7 @@
 
         setTimeout(() => {  
           document.getElementById('copy').style.opacity = 1;
-        }, 50);
+        }, 60);
       });
 
     </script>
