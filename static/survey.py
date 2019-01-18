@@ -21,7 +21,7 @@ try:
 except NameError:
     pass
 
-PRIMARY_USE_OF_PYTHON = YEARS_USING_PYTHON = PYTHON_MONHTLY_USAGE = CONTRIBUTER_TO_OSS = None
+PRODUCTION_SYSTEM = PRIMARY_USE_OF_PYTHON = YEARS_USING_PYTHON = PYTHON_MONHTLY_USAGE = CONTRIBUTER_TO_OSS = None
 TEST = True if os.environ.get("TRAVIS") else False
 HIDE_EMOJI = True if (platform == "win32" or TEST) else False
 ENDPOINT = "https://python-packages-survey.com/collect"
@@ -35,8 +35,7 @@ def python_version():
 
 def post_to_api(data, endpoint):
     console_print("Sending the following data:", end='\n\n')
-    pprint(data)
-    print()
+    pprint(data); print()
     console_print("✨ All private libraries are filtered out before hitting the database ✨", end='\n\n')
     console_print("Your unique identifier is `%s`." % data['uuid'])
     console_print("Please provide this to us if you wish to delete your data from our database.", end='\n\n')
@@ -75,8 +74,8 @@ def console_print(text, *args, **kwargs):
 def true_false_or_none(s):
     return {'True': True, 'False': False}.get(s)
 
-print()
-console_print("""🔷 We'd like to start by asking you 5 questions about your Python usage. This will help with analysis. 
+
+print(); console_print("""🔷 We'd like to start by asking you 5 questions about your Python usage. This will help with analysis. 
 You can hit [enter] to skip any question.""", end="\n\n")
 
 if not TEST:
