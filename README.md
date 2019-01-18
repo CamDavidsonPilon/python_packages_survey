@@ -1,8 +1,8 @@
 # Python Packages Survey
 
-** WIP expect production data to be deleted **
+Take the survey:
+https://python-packages-survey.com/
 
-https://www.notion.so/Why-are-we-doing-this-332c3898242a4ce8bf7b784b9e1afa62
 
 ## Development 
 
